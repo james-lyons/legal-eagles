@@ -52,8 +52,8 @@ app.get('/', (req, res) => {
 app.use('/auth', routes.auth);
 
 // User Routes
-app.use('/client', routes.client);
-app.use('/attorny', routes.attorny);
+// app.use('/client', routes.client);
+// app.use('/attorny', routes.attorny);
 
 // SECTION Server Listener
 app.listen(PORT, () => console.log(`Listening on port: ${ PORT }`));
