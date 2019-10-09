@@ -1,4 +1,5 @@
 module.exports = {
     auth: require('./authController'),
-    // attorny: require('./attornyController')
+    // attorney: require('./attorneyController'),
+    // review: require('./reviewController')
 }

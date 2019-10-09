@@ -1,22 +1,22 @@
 const bcrypt = require('bcryptjs');
 const validateClient = require('../validation/registerClient');
-const validateAttorny = require('../validation/registerAttorney');
+const validateAttorney = require('../validation/registerAttorney');
 const db = require('../models');
 
 const registerAttorney = (req, res) => {
-    const { errors, notValid } = validate(req.body);
+    const { errors, notValid } = validateAttorney(req.body);
 
     if (notValid) {
         return res.status(400).json({ status: 400, errors });
     };
 
-    db.Attorny.findOne({ email: req.body.email }), (err, foundAttorny) => {
+    db.Attorney.findOne({ email: req.body.email }), (err, foundAttorney) => {
         if (err) return res.status(500).json({
             status: 500,
             message: 'Something went wrong, please try again.'
         });
 
-        if (foundAttorny) return res.status(400).json({
+        if (foundAttorney) return res.status(400).json({
             status: 400,
             message: 'This email has already been registered.'
         });
@@ -33,7 +33,7 @@ const registerAttorney = (req, res) => {
                     message: 'Something went wrong, please try again.'
                 });
 
-                const newAttorny = {
+                const newAttorney = {
                     name: req.body.name,
                     email: req.body.email,
                     password: hash,
@@ -43,7 +43,7 @@ const registerAttorney = (req, res) => {
                     specialties: req.body.specialties
                 };
 
-                db.Attorny.create(newAttorny, (err, savedAttorny) => {
+                db.Attorney.create(newAttorney, (err, savedAttorney) => {
                     if (err) return res.status(500).json({
                         status: 500,
                         message: err
@@ -51,7 +51,7 @@ const registerAttorney = (req, res) => {
 
                     res.status(201).json({
                         status: 201,
-                        message: 'Successfully created new attorny account.'
+                        message: 'Successfully created new attorney account.'
                     });
                 });
             });
@@ -60,7 +60,7 @@ const registerAttorney = (req, res) => {
 };
 
 const registerClient = (req, res) => {
-    const { errors, notValid } = validate(req.body);
+    const { errors, notValid } = validateClient(req.body);
 
     if (notValid) {
         return res.status(400).json({ status: 400, errors });
@@ -112,7 +112,7 @@ const registerClient = (req, res) => {
     });
 };
 
-const attornyLogin = (req, res) => {
+const attorneyLogin = (req, res) => {
     if (!req.body.email || !req.body.password) {
         return res.status(400).json({
             status: 400,
@@ -120,7 +120,7 @@ const attornyLogin = (req, res) => {
         });
     };
 
-    db.Attorny.findOne({ email: req.body.email }, (err, foundAttorny) => {
+    db.Attorney.findOne({ email: req.body.email }, (err, foundAttorney) => {
         if (err) return res.status(500).json({
             status: 500,
             message: 'Something went wrong, please try again.'
@@ -131,7 +131,7 @@ const attornyLogin = (req, res) => {
             message: 'Email or password is incorrect'
         });
 
-        bcrypt.compare(req.body.password, foundAttorny.password, (err, isMatch) => {
+        bcrypt.compare(req.body.password, foundAttorney.password, (err, isMatch) => {
             if (err) return res.status(500).json({
                 status: 500,
                 message: 'Something went wrong, please try again.'
@@ -139,10 +139,10 @@ const attornyLogin = (req, res) => {
 
             if (isMatch) {
                 req.session.loggedIn = true;
-                req.session.currentUser = { id: foundAttorny._id };
+                req.session.currentUser = { id: foundAttorney._id };
                 return res.status(200).json({
                     status: 200,
-                    message: 'Successfully logged in', id: foundAttorny._id
+                    message: 'Successfully logged in', id: foundAttorney._id
                 });
             } else {
                 return res.status(400).json({
@@ -209,7 +209,7 @@ const logout = (req, res) => {
 module.exports = {
     registerAttorney,
     registerClient,
-    attornyLogin,
+    attorneyLogin,
     clientLogin,
     logout
 }
