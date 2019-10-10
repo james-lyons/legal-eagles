@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-ctrl = require('../controllers');
+const ctrl = require('../controllers');
 
 // Authentication Routes
 router.post('/registerClient', ctrl.auth.registerClient);

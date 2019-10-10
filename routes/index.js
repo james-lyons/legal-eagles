@@ -1,6 +1,6 @@
 module.exports = {
     auth: require('./auth'),
-    // client: require('./client'),
-    // attorny: require('./attorney')
+    attorney: require('./attorney'),
+    client: require('./client'),
     // review: require('./review')
 };
