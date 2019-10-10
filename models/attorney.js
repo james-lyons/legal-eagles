@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const attorneySchema = new Schema({
+    user_type: {
+        type: String,
+        default: 'attorney',
+        required: true
+    },
     name: {
         type: String,
         required: true
