@@ -10,7 +10,7 @@ const registerAttorney = (req, res) => {
         return res.status(400).json({ status: 400, errors });
     };
 
-    db.Attorney.findOne({ email: req.body.email }), (err, foundAttorney) => {
+    db.Attorney.findOne({ email: req.body.email }, (err, foundAttorney) => {
         if (err) return res.status(500).json({
             status: 500,
             message: 'Something went wrong, please try again.'
@@ -39,7 +39,7 @@ const registerAttorney = (req, res) => {
                     password: hash,
                     password2: hash,
                     address: req.body.address,
-                    zipCode: req.body.zipCode,
+                    zipcode: req.body.zipcode,
                     specialties: req.body.specialties
                 };
 
@@ -51,12 +51,12 @@ const registerAttorney = (req, res) => {
 
                     res.status(201).json({
                         status: 201,
-                        message: 'Successfully created new attorney account.'
+                        message: 'Successfully registered new attorney.'
                     });
                 });
             });
         });
-    };
+    });
 };
 
 const registerClient = (req, res) => {
@@ -104,7 +104,7 @@ const registerClient = (req, res) => {
 
                     res.status(201).json({
                         status: 201,
-                        message: 'Successfully created new client account.'
+                        message: 'Successfully registered new client.'
                     });
                 });
             });
@@ -126,7 +126,7 @@ const attorneyLogin = (req, res) => {
             message: 'Something went wrong, please try again.'
         });
 
-        if (!foundUser) return res.status(400).json({
+        if (!foundAttorney) return res.status(400).json({
             status: 400,
             message: 'Email or password is incorrect'
         });
@@ -168,12 +168,12 @@ const clientLogin = (req, res) => {
             message: 'Something went wrong, please try again.'
         });
 
-        if (!foundUser) return res.status(400).json({
+        if (!foundClient) return res.status(400).json({
             status: 400,
             message: 'Email or password is incorrect'
         });
 
-        bcrypt.compare(req.body.password, foundClient.passwprd, (err, isMatch) => {
+        bcrypt.compare(req.body.password, foundClient.password, (err, isMatch) => {
             if (err) return res.status(500).json({
                 status: 500,
                 message: 'Something went wrong, please try again.'

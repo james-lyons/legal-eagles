@@ -1,4 +1,4 @@
-module.exports = ({ email, password, password2 }) => {
+module.exports = ({ name, email, password, password2, address, zipcode, specialties }) => {
     let errors = [];
 
     if (!name) {

@@ -14,7 +14,8 @@ const secret = require('./secret.js')
 
 // SECTION Body Parser
 app.use(bodyParser.urlencoded({
-    extended: false}));
+    extended: false
+}));
 
 app.use(bodyParser.json());
 
@@ -25,7 +26,7 @@ app.use((req, res, next) => {
     const requestedAt = new Date().toLocaleDateString();
     console.table({ url, method, requestedAt });
     next();
-})
+});
 
 // SECTION User Sessions
 app.use(session({
