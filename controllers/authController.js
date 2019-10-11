@@ -21,37 +21,49 @@ const registerAttorney = (req, res) => {
             message: 'This email has already been registered.'
         });
 
-        bcrypt.genSalt(10, (err, salt) => {
+        db.Client.findOne({ email: req.body.email }, (err, foundClient) => {
             if (err) return res.status(500).json({
                 status: 500,
                 message: 'Something went wrong, please try again.'
             });
 
-            bcrypt.hash(req.body.password, salt, (err, hash) => {
+            if (foundClient) return res.status(400).json({
+                status: 400,
+                message: 'This email has already been registered'
+            });
+
+            bcrypt.genSalt(10, (err, salt) => {
                 if (err) return res.status(500).json({
                     status: 500,
                     message: 'Something went wrong, please try again.'
                 });
-
-                const newAttorney = {
-                    name: req.body.name,
-                    email: req.body.email,
-                    password: hash,
-                    password2: hash,
-                    address: req.body.address,
-                    zipcode: req.body.zipcode,
-                    specialties: req.body.specialties
-                };
-
-                db.Attorney.create(newAttorney, (err, savedAttorney) => {
+    
+                bcrypt.hash(req.body.password, salt, (err, hash) => {
                     if (err) return res.status(500).json({
                         status: 500,
-                        message: err
+                        message: 'Something went wrong, please try again.'
                     });
-
-                    res.status(201).json({
-                        status: 201,
-                        message: 'Successfully registered new attorney.'
+    
+                    const newAttorney = {
+                        name: req.body.name,
+                        email: req.body.email,
+                        password: hash,
+                        password2: hash,
+                        address: req.body.address,
+                        zipcode: req.body.zipcode,
+                        specialties: req.body.specialties
+                    };
+    
+                    db.Attorney.create(newAttorney, (err, savedAttorney) => {
+                        if (err) return res.status(500).json({
+                            status: 500,
+                            message: err
+                        });
+    
+                        res.status(201).json({
+                            status: 201,
+                            message: 'Successfully registered new attorney.'
+                        });
                     });
                 });
             });
@@ -77,34 +89,46 @@ const registerClient = (req, res) => {
             message: 'Something went wrong, please try again.'
         });
 
-        bcrypt.genSalt(10, (err, salt) => {
+        db.Attorney.findOne({ email: req.body.email}, (err, foundAttorney) => {
             if (err) return res.status(500).json({
                 status: 500,
                 message: 'Something went wrong, please try again.'
             });
 
-            bcrypt.hash(req.body.password, salt, (err, hash) => {
+            if (foundAttorney) return res.status(400).json({
+                status: 400,
+                message: 'This email has already been registered.'
+            });
+
+            bcrypt.genSalt(10, (err, salt) => {
                 if (err) return res.status(500).json({
                     status: 500,
                     message: 'Something went wrong, please try again.'
                 });
-
-                const newClient = {
-                    name: req.body.name,
-                    email: req.body.email,
-                    password: hash,
-                    password2: hash
-                };
-
-                db.Client.create(newClient, (err, savedClient) => {
+    
+                bcrypt.hash(req.body.password, salt, (err, hash) => {
                     if (err) return res.status(500).json({
                         status: 500,
-                        message: err
+                        message: 'Something went wrong, please try again.'
                     });
-
-                    res.status(201).json({
-                        status: 201,
-                        message: 'Successfully registered new client.'
+    
+                    const newClient = {
+                        name: req.body.name,
+                        email: req.body.email,
+                        password: hash,
+                        password2: hash
+                    };
+    
+                    db.Client.create(newClient, (err, savedClient) => {
+                        if (err) return res.status(500).json({
+                            status: 500,
+                            message: err
+                        });
+    
+                        res.status(201).json({
+                            status: 201,
+                            message: 'Successfully registered new client.'
+                        });
                     });
                 });
             });
