@@ -36,7 +36,7 @@ app.use(session({
 }));
 
 const corsOptions = {
-    origin: "https://localhost:3000",
+    origin: "http://localhost:3000",
     credentials: true,
     optionsSuccessStatus: 200
 };
