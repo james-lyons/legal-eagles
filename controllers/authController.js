@@ -49,7 +49,6 @@ const registerAttorney = (req, res) => {
                         email: req.body.email,
                         password: hash,
                         password2: hash,
-                        address: req.body.address,
                         zipcode: req.body.zipcode,
                         specialties: req.body.specialties
                     };
@@ -163,7 +162,7 @@ const attorneyLogin = (req, res) => {
 
             if (isMatch) {
                 req.session.loggedIn = true;
-                req.session.currentUser = { id: foundAttorney._id };
+                req.session.currentUser = { id: foundAttorney._id, user_type: foundAttorney.user_type };
                 return res.status(200).json({
                     status: 200,
                     message: 'Successfully logged in', id: foundAttorney._id
@@ -205,7 +204,7 @@ const clientLogin = (req, res) => {
 
             if (isMatch) {
                 req.session.loggedIn = true;
-                req.session.currentUser = { id: foundClient._id };
+                req.session.currentUser = { id: foundClient._id, user_type: foundClient.user_type };
                 return res.status(200).json({
                     status: 200,
                     message: 'Successfully logged in', id: foundClient._id

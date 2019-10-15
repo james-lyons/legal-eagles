@@ -1,4 +1,4 @@
-module.exports = ({ name, email, password, password2, address, zipcode, specialties }) => {
+module.exports = ({ name, email, password, password2, zipcode, specialties }) => {
     let errors = [];
 
     if (!name) {
@@ -19,10 +19,6 @@ module.exports = ({ name, email, password, password2, address, zipcode, specialt
 
     if (password !== password2) {
         errors.push({ message: 'Passwords must match' });
-    };
-
-    if (!address) {
-        errors.push({ message: 'Please enter your address' });
     };
 
     if (!zipcode) {

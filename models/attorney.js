@@ -25,10 +25,6 @@ const attorneySchema = new Schema({
         required: true,
         default: 'https://icon-library.net/images/default-profile-icon/default-profile-icon-24.jpg'
     },
-    address: {
-        type: String,
-        required: true
-    },
     zipcode: {
         type: Number,
         required: true

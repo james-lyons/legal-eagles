@@ -15,6 +15,7 @@ const showClient = (req, res) => {
 };
 
 const editAccount = (req, res) => {
+    console.log(req)
     db.Client.findByIdAndUpdate(req.session.currentUser.id, req.body, (err, foundClient) => {
         if (err) return res.status(500).json({
             status: 500,

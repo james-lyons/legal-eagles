@@ -1,18 +1,18 @@
 const db = require('../models');
 
 const indexAttorneys = (req, res) => {
-    db.Attorney.find({}, (err, foundAttorneys) => {
+    db.Attorney.find({ specialties: req.params.search }, (err, foundAttorneys) => {
         if (err) return res.status(500).json({
             status: 500,
             message: 'Something went wrong, please try again.'
         });
-
         res.status(200).json({
             status: 200,
             data: foundAttorneys
         });
     });
 };
+
 
 const showAttorney = (req, res) => {
     db.Attorney.findById(req.params.id, (err, foundAttorney) => {
