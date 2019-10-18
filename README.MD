@@ -15,8 +15,8 @@
 - Heroku
 
 ## Wireframes
-** Many things changed as I started coding
-** Decided not to use google maps because I didn't think it would be wise to have the address of a legal professional out there for anyone to easily find, just in case.
+- Many things changed as I started coding
+- Decided not to use google maps because I didn't think it would be wise to have the address of a legal professional out there for anyone to easily find, just in case.
 
 ![ERD](./Wireframes/ERD.png)
 ![landing page](./Wireframes/wireframe_1.png)
