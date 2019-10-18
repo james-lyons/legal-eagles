@@ -7,7 +7,11 @@ const attorneySchema = new Schema({
         default: 'attorney',
         required: true
     },
-    name: {
+    first_name: {
+        type: String,
+        required: true
+    },
+    last_name: {
         type: String,
         required: true
     },
@@ -25,16 +29,22 @@ const attorneySchema = new Schema({
         required: true,
         default: 'https://icon-library.net/images/default-profile-icon/default-profile-icon-24.jpg'
     },
+    city: {
+        type: String,
+        required: true,
+    },
+    state: {
+        type: String,
+        required: true,
+    },
     zipcode: {
         type: Number,
         required: true
     },
-    specialties: [
-        {
-            type: String,
-            required: true
-        }
-    ],
+    specialty: {
+        type: String,
+        required: true
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,

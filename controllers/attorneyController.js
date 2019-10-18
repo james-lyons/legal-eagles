@@ -1,11 +1,45 @@
 const db = require('../models');
 
 const indexAttorneys = (req, res) => {
-    db.Attorney.find({ specialties: req.params.search }, (err, foundAttorneys) => {
+    console.log(req.query)
+    db.Attorney.find({
+        $or: [{ specialty: req.query.specialty }, { zipcode: req.query.zipcode }]},
+        (err, foundAttorneys) => {
+            if (err) return res.status(500).json({
+                status: 500,
+                message: 'Something went wrong, please try again.'
+            });
+            console.log(foundAttorneys)
+            res.status(200).json({
+                status: 200,
+                data: foundAttorneys
+            });
+        });
+};
+
+const indexAttorneysBySpecialty = (req, res) => {
+    console.log(req.params)
+    db.Attorney.find({ specialty: req.params.specialty }, (err, foundAttorneys) => {
         if (err) return res.status(500).json({
             status: 500,
             message: 'Something went wrong, please try again.'
         });
+        console.log(foundAttorneys)
+        res.status(200).json({
+            status: 200,
+            data: foundAttorneys
+        });
+    });
+};
+
+const indexAttorneysByZipcode = (req, res) => {
+    console.log(req.params)
+    db.Attorney.find({ zipcode: req.params.zipcode }, (err, foundAttorneys) => {
+        if (err) return res.status(500).json({
+            status: 500,
+            message: 'Something went wrong, please try again.'
+        });
+        console.log(foundAttorneys)
         res.status(200).json({
             status: 200,
             data: foundAttorneys
@@ -58,6 +92,8 @@ const deleteAccount = (req, res) => {
 
 module.exports = { 
     indexAttorneys,
+    indexAttorneysBySpecialty,
+    indexAttorneysByZipcode,
     showAttorney,
     editAccount,
     deleteAccount

@@ -1,12 +1,36 @@
-module.exports = ({ name, email, password, password2, zipcode, specialties }) => {
+module.exports = ({ first_name, last_name, email, profile_image, city, state, zipcode, specialty, password, password2 }) => {
     let errors = [];
 
-    if (!name) {
-        errors.push({ message: 'Please enter your name' });
+    if (!first_name) {
+        errors.push({ message: 'Please enter your first name' });
+    };
+
+    if (!last_name) {
+        errors.push({ message: 'Please enter your last name' });
     };
 
     if (!email) {
         errors.push({ message: 'Please enter your email' });
+    };
+
+    if (!profile_image) {
+        errors.push({ message: 'Please enter your profile image' });
+    };
+
+    if (!city) {
+        errors.push({ message: 'Please enter your city' });
+    };
+
+    if (!state) {
+        errors.push({ message: 'Please select your state' });
+    };
+
+    if (!zipcode) {
+        errors.push({ message: 'Please enter your zipcode' });
+    };
+
+    if (!specialty) {
+        errors.push({ message: 'Please select your specialty' });
     };
 
     if (!password) {
@@ -19,14 +43,6 @@ module.exports = ({ name, email, password, password2, zipcode, specialties }) =>
 
     if (password !== password2) {
         errors.push({ message: 'Passwords must match' });
-    };
-
-    if (!zipcode) {
-        errors.push({ message: 'Please enter your zipcode' });
-    };
-
-    if (!specialties) {
-        errors.push({ message: 'Please select your specialties' });
     };
 
     return {

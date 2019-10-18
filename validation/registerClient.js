@@ -1,7 +1,11 @@
-module.exports = ({ name, email, password, password2 }) => {
+module.exports = ({ first_name, last_name, email, password, password2 }) => {
     let errors = [];
 
-    if (!name) {
+    if (!first_name) {
+        errors.push({ message: 'Please enter your name' })
+    }
+
+    if (!last_name) {
         errors.push({ message: 'Please enter your name' })
     }
 

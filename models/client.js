@@ -7,7 +7,11 @@ const clientSchema = new Schema({
         default: 'client',
         required: true
     },
-    name: {
+    first_name: {
+        type: String,
+        required: true
+    },
+    last_name: {
         type: String,
         required: true
     },

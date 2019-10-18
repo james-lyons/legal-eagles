@@ -4,6 +4,7 @@ const validateAttorney = require('../validation/registerAttorney');
 const db = require('../models');
 
 const registerAttorney = (req, res) => {
+    console.log(req.body)
     const { errors, notValid } = validateAttorney(req.body);
 
     if (notValid) {
@@ -45,12 +46,16 @@ const registerAttorney = (req, res) => {
                     });
     
                     const newAttorney = {
-                        name: req.body.name,
+                        first_name: req.body.first_name,
+                        last_name: req.body.last_name,
                         email: req.body.email,
-                        password: hash,
-                        password2: hash,
+                        profile_image: req.body.profile_image,
+                        city: req.body.city,
+                        state: req.body.state,
                         zipcode: req.body.zipcode,
-                        specialties: req.body.specialties
+                        specialty: req.body.specialty,
+                        password: hash,
+                        password2: hash
                     };
     
                     db.Attorney.create(newAttorney, (err, savedAttorney) => {
@@ -71,6 +76,9 @@ const registerAttorney = (req, res) => {
 };
 
 const registerClient = (req, res) => {
+
+    console.log(req.body)
+
     const { errors, notValid } = validateClient(req.body);
 
     if (notValid) {
@@ -112,7 +120,8 @@ const registerClient = (req, res) => {
                     });
     
                     const newClient = {
-                        name: req.body.name,
+                        first_name: req.body.first_name,
+                        last_name: req.body.last_name,
                         email: req.body.email,
                         password: hash,
                         password2: hash
