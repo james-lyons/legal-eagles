@@ -10,7 +10,6 @@ const app = express();
 // SECTION Global Variables
 const PORT = process.env.PORT || 4000;
 const routes = require('./routes');
-const secret = require('./secret.js')
 
 // SECTION Body Parser
 app.use(bodyParser.urlencoded({
@@ -30,7 +29,7 @@ app.use((req, res, next) => {
 
 // SECTION User Sessions
 app.use(session({
-    secret: `${ secret }`,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false
 }));
