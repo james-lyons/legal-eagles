@@ -9,6 +9,14 @@ const reviewSchema = new Schema({
     author: {
         type: Schema.Types.ObjectId,
         ref: 'Client'
+    },
+    author_name: {
+        type: String,
+        required: true
+    },
+    attorney: {
+        type: Schema.Types.ObjectId,
+        ref: 'Attorney'
     }
 });
 

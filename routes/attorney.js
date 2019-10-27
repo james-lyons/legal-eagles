@@ -5,9 +5,8 @@ const authRequired = require('../middleware/authRequired');
 
 // Attorney Routes
 router.get('/search', ctrl.attorney.indexAttorneys);
-router.get('/search/specialty/:specialty', ctrl.attorney.indexAttorneysBySpecialty);
-router.get('/search/zipcode/:zipcode', ctrl.attorney.indexAttorneysByZipcode);
-router.get('/:id', ctrl.attorney.showAttorney);
+router.get('/search/id/:id', ctrl.attorney.showAttorneyById);
+router.get('/search/url/:url', ctrl.attorney.showAttorneyByURL);
 router.put('/:id', ctrl.attorney.editAccount);
 router.delete('/:id', ctrl.attorney.deleteAccount);
 

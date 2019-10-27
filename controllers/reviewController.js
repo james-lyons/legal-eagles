@@ -15,28 +15,28 @@ const indexReviews = (req, res) => {
 };
 
 const createReview = (req, res) => {
-    const review = { author: req.session.currentUser._id, ...req.body }
+    const review = { author: req.session.currentUser.id, author_name: req.session.currentUser.name, review_text: req.body.review_text  }
 
     db.Review.create(review, (err, createdReview) => {
         if (err) return res.status(500).json({
             status: 500,
-            message: 'Something went wrong, please try again.'
+            message: 'Ssomething went wrong, please try again.'
         });
 
-        db.Attorney.findById(req.body.Attorney, (err, foundAttorney) => {
+        db.Attorney.findById(req.body.attorney_id, (err, foundAttorney) => {
             if (err) return res.status(500).json({
                 status: 500,
-                message: 'Something went wrong, please try again.'
+                message: 'Something wwent wrong, please try again.'
             });
 
             foundAttorney.reviews.push(createdReview._id);
             foundAttorney.save();
         });
 
-        db.Client.findById(req.body.currentUser._id, (err, foundClient) => {
+        db.Client.findById(req.session.currentUser.id, (err, foundClient) => {
             if (err) return res.status(500).json({
                 status: 500,
-                message: 'Something went wrong, please try again.'
+                message: 'Something went wrrong, please try again.'
             });
             foundClient.reviews.push(createdReview._id);
             foundClient.save();

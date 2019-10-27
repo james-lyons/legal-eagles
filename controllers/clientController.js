@@ -11,11 +11,11 @@ const showClient = (req, res) => {
             status: 200,
             data: foundClient
         });
-    });
+    })
+    .populate('reviews');
 };
 
 const editAccount = (req, res) => {
-    console.log(req)
     db.Client.findByIdAndUpdate(req.session.currentUser.id, req.body, (err, foundClient) => {
         if (err) return res.status(500).json({
             status: 500,
@@ -46,5 +46,5 @@ const deleteAccount = (req, res) => {
 module.exports = { 
     showClient,
     editAccount,
-    deleteAccount
+    deleteAccount,
 }

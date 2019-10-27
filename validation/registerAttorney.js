@@ -1,36 +1,54 @@
-module.exports = ({ first_name, last_name, email, profile_image, city, state, zipcode, specialty, password, password2 }) => {
+module.exports = (
+    {
+        name,
+        email,
+        url,
+        bio,
+        city,
+        state,
+        zipcode,
+        specialty,
+        profile_image,
+        password,
+        password2
+    }) => {
+
     let errors = [];
 
-    if (!first_name) {
-        errors.push({ message: 'Please enter your first name' });
-    };
-
-    if (!last_name) {
-        errors.push({ message: 'Please enter your last name' });
+    if (!name) {
+        errors.push({ message: 'Please enter your name' });
     };
 
     if (!email) {
         errors.push({ message: 'Please enter your email' });
     };
 
-    if (!profile_image) {
-        errors.push({ message: 'Please enter your profile image' });
-    };
-
     if (!city) {
         errors.push({ message: 'Please enter your city' });
     };
 
+    if (!url) {
+        errors.push({ message: 'Please enter your url' });
+    };
+
+    if (!bio) {
+        errors.push({ message: 'Please enter your bio' });
+    };
+    
     if (!state) {
         errors.push({ message: 'Please select your state' });
     };
-
+    
     if (!zipcode) {
         errors.push({ message: 'Please enter your zipcode' });
     };
-
+    
     if (!specialty) {
         errors.push({ message: 'Please select your specialty' });
+    };
+    
+    if (!profile_image) {
+        errors.push({ message: 'Please enter your profile image' });
     };
 
     if (!password) {

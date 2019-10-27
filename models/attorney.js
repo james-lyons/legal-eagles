@@ -7,11 +7,7 @@ const attorneySchema = new Schema({
         default: 'attorney',
         required: true
     },
-    first_name: {
-        type: String,
-        required: true
-    },
-    last_name: {
+    name: {
         type: String,
         required: true
     },
@@ -20,7 +16,12 @@ const attorneySchema = new Schema({
         required: true,
         unique: [true, "Email has already been registered."]
     },
-    password: {
+    url: {
+        type: String,
+        required: true,
+        unique: [true, "url has already been registered."]
+    },
+    bio: {
         type: String,
         required: true,
     },
@@ -50,7 +51,11 @@ const attorneySchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Review'
         }
-    ]
+    ],
+    password: {
+        type: String,
+        required: true,
+    },
 });
 
 const Attorney = mongoose.model('Attorney', attorneySchema);

@@ -4,7 +4,6 @@ const validateAttorney = require('../validation/registerAttorney');
 const db = require('../models');
 
 const registerAttorney = (req, res) => {
-    console.log(req.body)
     const { errors, notValid } = validateAttorney(req.body);
 
     if (notValid) {
@@ -46,14 +45,15 @@ const registerAttorney = (req, res) => {
                     });
     
                     const newAttorney = {
-                        first_name: req.body.first_name,
-                        last_name: req.body.last_name,
+                        name: req.body.name,
                         email: req.body.email,
-                        profile_image: req.body.profile_image,
                         city: req.body.city,
+                        url: req.body.url,
+                        bio: req.body.bio,
                         state: req.body.state,
                         zipcode: req.body.zipcode,
                         specialty: req.body.specialty,
+                        profile_image: req.body.profile_image,
                         password: hash,
                         password2: hash
                     };
@@ -76,9 +76,6 @@ const registerAttorney = (req, res) => {
 };
 
 const registerClient = (req, res) => {
-
-    console.log(req.body)
-
     const { errors, notValid } = validateClient(req.body);
 
     if (notValid) {
@@ -107,35 +104,46 @@ const registerClient = (req, res) => {
                 message: 'This email has already been registered.'
             });
 
-            bcrypt.genSalt(10, (err, salt) => {
-                if (err) return res.status(500).json({
-                    status: 500,
+            db.Attorney.findOne({ url: req.body.url}, (err, foundAttorney) => {
+                if (err) return res.status(501).json({
+                    status: 501,
                     message: 'Something went wrong, please try again.'
                 });
-    
-                bcrypt.hash(req.body.password, salt, (err, hash) => {
+
+                if (foundAttorney) return res.status(400).json({
+                    status: 400,
+                    message: 'This url has already been registered.'
+                });
+
+                bcrypt.genSalt(10, (err, salt) => {
                     if (err) return res.status(500).json({
                         status: 500,
                         message: 'Something went wrong, please try again.'
                     });
-    
-                    const newClient = {
-                        first_name: req.body.first_name,
-                        last_name: req.body.last_name,
-                        email: req.body.email,
-                        password: hash,
-                        password2: hash
-                    };
-    
-                    db.Client.create(newClient, (err, savedClient) => {
+        
+                    bcrypt.hash(req.body.password, salt, (err, hash) => {
                         if (err) return res.status(500).json({
                             status: 500,
-                            message: err
+                            message: 'Something went wrong, please try again.'
                         });
-    
-                        res.status(201).json({
-                            status: 201,
-                            message: 'Successfully registered new client.'
+        
+                        const newClient = {
+                            name: req.body.name,
+                            email: req.body.email,
+                            password: hash,
+                            password2: hash
+                        };
+        
+                        db.Client.create(newClient, (err, savedClient) => {
+                            if (err) return res.status(500).json({
+                                status: 500,
+                                message: err
+                            });
+        
+                            res.status(201).json({
+                                status: 201,
+                                message: 'Successfully registered new client.'
+                            });
                         });
                     });
                 });
@@ -174,7 +182,7 @@ const attorneyLogin = (req, res) => {
                 req.session.currentUser = { id: foundAttorney._id, user_type: foundAttorney.user_type };
                 return res.status(200).json({
                     status: 200,
-                    message: 'Successfully logged in', id: foundAttorney._id
+                    message: 'Successfully logged in', id: foundAttorney._id, user_type: foundAttorney.user_type
                 });
             } else {
                 return res.status(400).json({
@@ -213,10 +221,11 @@ const clientLogin = (req, res) => {
 
             if (isMatch) {
                 req.session.loggedIn = true;
-                req.session.currentUser = { id: foundClient._id, user_type: foundClient.user_type };
+                req.session.currentUser = { id: foundClient._id, user_type: foundClient.user_type, name: foundClient.name };
                 return res.status(200).json({
                     status: 200,
-                    message: 'Successfully logged in', id: foundClient._id
+                    // message: 'Successfully logged in', id: foundClient._id, user_type: foundClient.user_type,
+                    data: {id: foundClient._id, user_type: foundClient.user_type, name: foundClient.name, email: foundClient.email}
                 });
             } else {
                 return res.status(400).json({
