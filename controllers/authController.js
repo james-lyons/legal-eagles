@@ -224,8 +224,14 @@ const clientLogin = (req, res) => {
                 req.session.currentUser = { id: foundClient._id, user_type: foundClient.user_type, name: foundClient.name };
                 return res.status(200).json({
                     status: 200,
-                    // message: 'Successfully logged in', id: foundClient._id, user_type: foundClient.user_type,
-                    data: {id: foundClient._id, user_type: foundClient.user_type, name: foundClient.name, email: foundClient.email}
+                    message: 'Successfully logged in', id: foundClient._id,
+                    data:
+                        {
+                            id: foundClient._id,
+                            user_type: foundClient.user_type,
+                            name: foundClient.name,
+                            email: foundClient.email
+                        }
                 });
             } else {
                 return res.status(400).json({
