@@ -35,14 +35,14 @@ app.use(session({
 }));
 
 const corsOptions = {
-    origin: 'https://legal-eagles-react.herokuapp.com/',
+    origin: 'https://legal-eagles-react.herokuapp.com',
     methods: ["GET", "PUT", "POST", "HEAD", "DELETE", "OPTIONS"],
     headers: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
     credentials: true,
     optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
-app.options('https://legal-eagles-react.herokuapp.com/', cors());
+app.options('https://legal-eagles-react.herokuapp.com', cors());
 
 // SECTION Routes
 // Home root
