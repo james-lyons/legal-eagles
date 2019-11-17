@@ -21,7 +21,8 @@ const createReview = (req, res) => {
             author_name: req.session.currentUser.name,
             review_text: req.body.review_text
         }
-    if (!currentUser.name) return res.status(401).json({
+
+    if (!req.session.currentUser.name) return res.status(401).json({
         status: 401,
         message: 'Must be logged in as a client to write reviews.'
     })
