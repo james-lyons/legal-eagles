@@ -1,7 +1,8 @@
 # Legal Eagles Server
 
 ## React Repo
-[https://github.com/james-lyons/legal_eagles_react] (https://github.com/james-lyons/legal_eagles_react)
+https://github.com/james-lyons/legal_eagles_react
+https://legal-eagles-react.herokuapp.com/
 
 ## Technologies Used
 - Full M.E.R.N. stack
