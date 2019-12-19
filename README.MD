@@ -1,19 +1,19 @@
 # Legal Eagles Server
 
-## React Repo
-https://github.com/james-lyons/legal_eagles_react
-https://legal-eagles-react.herokuapp.com/
+## Links
+- Front end repo: https://github.com/james-lyons/legal_eagles_react
+- Heroku Link: https://legal-eagles-react.herokuapp.com/
 
 ## Technologies Used
 - Full M.E.R.N. stack
 - Database: MongoDB & Mongoose
-- Server Enviornment: Node
-- Express: Server Framework
-- React: Frontend Framework
-- Redux: State management for React
-- React Bootstrap
-- Github / Git
-- Heroku
+- Server Enviornment: Node.js
+- Server Framework: Express.js
+- Front end Framework: React
+- State management for React: Redux
+- Style Libraries: React Bootstrap
+- Version Control: Github / Git
+- Deployment Method: Heroku
 
 ## Wireframes
 - Many things changed as I started coding
