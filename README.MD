@@ -1,7 +1,7 @@
 # Legal Eagles Server
 
 ## Links
-- Front end repo: https://github.com/james-lyons/legal_eagles_react
+- Front End repo: https://github.com/james-lyons/legal_eagles_react
 - Heroku Link: https://legal-eagles-react.herokuapp.com/
 
 ## Technologies Used
